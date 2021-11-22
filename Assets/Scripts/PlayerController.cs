@@ -8,7 +8,8 @@ public class PlayerController : MonoBehaviour
     private float VerticalInput;
     public float Speed = 10f;
     public float xRange = 16f;
-    public float xRangeNegative = -16f;
+
+    public GameObject projectilePrefab;
 
     // Start is called before the first frame update
     void Start()
@@ -24,13 +25,22 @@ public class PlayerController : MonoBehaviour
         VerticalInput = Input.GetAxis("Vertical");
         transform.Translate(Vector3.forward * Speed * Time.deltaTime * VerticalInput);
 
+        //Límite de pantalla derecho
         if (transform.position.x > xRange)
         {
             transform.position = new Vector3(xRange, transform.position.y, transform.position.z);
         }
-        if (transform.position.x < xRangeNegative)
+
+        //Límite de pantalla izquierdo
+        if (transform.position.x < -xRange)
         {
-            transform.position = new Vector3(xRangeNegative, transform.position.y, transform.position.z);
+            transform.position = new Vector3(-xRange, transform.position.y, transform.position.z);
+        }
+
+        //Se encarga del disparo
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Instantiate(projectilePrefab, transform.position, projectilePrefab.transform.rotation);
         }
     }
 }
