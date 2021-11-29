@@ -16,15 +16,16 @@ public class DestroyOutOfBounds : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Comida fallida
+        //Si la comida cruza el límite superior desaparece
         if (transform.position.z > UpperLimit)
         {
             Destroy(gameObject);
         }
-        //Animal fallido
+        //Si el animal cruza el límite inferior desaparece
         if (transform.position.z < LowerLimit)
         {
             Destroy(gameObject);
+            Time.timeScale = 0;
         }
     }
 }
